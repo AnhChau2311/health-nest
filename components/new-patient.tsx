@@ -20,7 +20,7 @@ import { z } from "zod";
 import { CustomInput } from "@/components/custom-input";
 import { GENDER, MARITAL_STATUS, RELATION } from "@/lib";
 import { Button } from "./ui/button";
-import { createNewPatient } from "@/app/(protected)/actions/patient";
+import { createNewPatient, updatePatient } from "@/app/(protected)/actions/patient";
 import { toast } from "sonner";
 
 interface DataProps {
@@ -67,7 +67,7 @@ export const NewPatient = ({ data, type }: DataProps) => {
     setLoading(true);
 
     const res =
-      type === "create" ? await createNewPatient(values, userId!) : null;
+      type === "create" ? await createNewPatient(values, userId!) : await updatePatient(values, userId!);
     setLoading(false);
 
     if (res?.success) {
